@@ -49,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -168,14 +170,59 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\evaluationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905051750247_InitialCreate.cs" />
+    <Compile Include="Migrations\201905051750247_InitialCreate.Designer.cs">
+      <DependentUpon>201905051750247_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905051948285_AddSchoolId.cs" />
+    <Compile Include="Migrations\201905051948285_AddSchoolId.Designer.cs">
+      <DependentUpon>201905051948285_AddSchoolId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905051957362_updateSchoolIdtype.cs" />
+    <Compile Include="Migrations\201905051957362_updateSchoolIdtype.Designer.cs">
+      <DependentUpon>201905051957362_updateSchoolIdtype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\course.cs">
+      <DependentUpon>evals.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\enrollment.cs">
+      <DependentUpon>evals.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\evals.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>evals.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\evals.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>evals.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\evals.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>evals.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\evaluation.cs">
+      <DependentUpon>evals.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\instructor.cs">
+      <DependentUpon>evals.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\student.cs">
+      <DependentUpon>evals.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -188,8 +235,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\evals.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>evals.edmx</DependentUpon>
+      <LastGenOutput>evals.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\evals.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>evals.edmx</DependentUpon>
+      <LastGenOutput>evals.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\evals.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>evals.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\evals.edmx.diagram">
+      <DependentUpon>evals.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -235,6 +299,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\evaluations\Create.cshtml" />
+    <Content Include="Views\evaluations\Delete.cshtml" />
+    <Content Include="Views\evaluations\Details.cshtml" />
+    <Content Include="Views\evaluations\Edit.cshtml" />
+    <Content Include="Views\evaluations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -251,6 +320,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905051750247_InitialCreate.resx">
+      <DependentUpon>201905051750247_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905051948285_AddSchoolId.resx">
+      <DependentUpon>201905051948285_AddSchoolId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905051957362_updateSchoolIdtype.resx">
+      <DependentUpon>201905051957362_updateSchoolIdtype.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

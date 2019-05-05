@@ -1,0 +1,185 @@
+﻿@model EvaluationApp.Models.evaluation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>evaluation</h4>
+    <hr />
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayFor(model => model.studentname)
+                @Html.DisplayFor(model => model.coursetitle)
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.a1)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.a1)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.a2)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.a2)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.a3)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.a3)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.a4)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.a4)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.b1)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.b1)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.b2)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.b2)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.b3)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.b3)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.b4)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.b4)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.b5)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.b5)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.b6)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.b6)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.c1)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.c1)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.c2)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.c2)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.d1)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.d1)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.d2)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.d2)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.e1)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.e1)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.DisplayNameFor(model => model.e2)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.e2)
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

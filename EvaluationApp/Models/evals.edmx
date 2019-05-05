@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="evalsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="60" />
+          <Property Name="instructorid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enrollments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentid" Type="int" Nullable="false" />
+          <Property Name="courseid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="evaluation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="coursetitle" Type="varchar" MaxLength="60" />
+          <Property Name="studentname" Type="varchar" MaxLength="60" />
+          <Property Name="studentid" Type="int" />
+          <Property Name="courseid" Type="int" />
+          <Property Name="a1" Type="varchar" MaxLength="20" />
+          <Property Name="a2" Type="varchar" MaxLength="20" />
+          <Property Name="a3" Type="varchar" MaxLength="20" />
+          <Property Name="a4" Type="varchar" MaxLength="20" />
+          <Property Name="b1" Type="varchar" MaxLength="20" />
+          <Property Name="b2" Type="varchar" MaxLength="20" />
+          <Property Name="b3" Type="varchar" MaxLength="20" />
+          <Property Name="b4" Type="varchar" MaxLength="20" />
+          <Property Name="b5" Type="varchar" MaxLength="20" />
+          <Property Name="b6" Type="varchar" MaxLength="20" />
+          <Property Name="c1" Type="varchar" MaxLength="240" />
+          <Property Name="c2" Type="varchar" MaxLength="240" />
+          <Property Name="d1" Type="varchar" MaxLength="240" />
+          <Property Name="d2" Type="varchar" MaxLength="240" />
+          <Property Name="e1" Type="varchar" MaxLength="240" />
+          <Property Name="e2" Type="varchar" MaxLength="240" />
+        </EntityType>
+        <EntityType Name="instructor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="60" />
+          <Property Name="LastName" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="60" />
+          <Property Name="LastName" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <Association Name="FK_course_To_instructor">
+          <End Role="instructor" Type="Self.instructor" Multiplicity="1" />
+          <End Role="course" Type="Self.course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="course">
+              <PropertyRef Name="instructorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enrollments_To_course">
+          <End Role="course" Type="Self.course" Multiplicity="1" />
+          <End Role="enrollments" Type="Self.enrollments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="enrollments">
+              <PropertyRef Name="courseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enrollments_To_student">
+          <End Role="student" Type="Self.student" Multiplicity="1" />
+          <End Role="enrollments" Type="Self.enrollments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="enrollments">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_evaluation_to_course">
+          <End Role="course" Type="Self.course" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="courseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_evaluation_to_student">
+          <End Role="student" Type="Self.student" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="evalsDBModelStoreContainer">
+          <EntitySet Name="course" EntityType="Self.course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="enrollments" EntityType="Self.enrollments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="evaluation" EntityType="Self.evaluation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="instructor" EntityType="Self.instructor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_course_To_instructor" Association="Self.FK_course_To_instructor">
+            <End Role="instructor" EntitySet="instructor" />
+            <End Role="course" EntitySet="course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enrollments_To_course" Association="Self.FK_enrollments_To_course">
+            <End Role="course" EntitySet="course" />
+            <End Role="enrollments" EntitySet="enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enrollments_To_student" Association="Self.FK_enrollments_To_student">
+            <End Role="student" EntitySet="student" />
+            <End Role="enrollments" EntitySet="enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_evaluation_to_course" Association="Self.FK_evaluation_to_course">
+            <End Role="course" EntitySet="course" />
+            <End Role="evaluation" EntitySet="evaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_evaluation_to_student" Association="Self.FK_evaluation_to_student">
+            <End Role="student" EntitySet="student" />
+            <End Role="evaluation" EntitySet="evaluation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="evalsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="instructorid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="instructor" Relationship="Self.FK_course_To_instructor" FromRole="course" ToRole="instructor" />
+          <NavigationProperty Name="enrollments" Relationship="Self.FK_enrollments_To_course" FromRole="course" ToRole="enrollments" />
+          <NavigationProperty Name="evaluations" Relationship="Self.FK_evaluation_to_course" FromRole="course" ToRole="evaluation" />
+        </EntityType>
+        <EntityType Name="enrollment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentid" Type="Int32" Nullable="false" />
+          <Property Name="courseid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="course" Relationship="Self.FK_enrollments_To_course" FromRole="enrollments" ToRole="course" />
+          <NavigationProperty Name="student" Relationship="Self.FK_enrollments_To_student" FromRole="enrollments" ToRole="student" />
+        </EntityType>
+        <EntityType Name="evaluation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="coursetitle" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="studentname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="studentid" Type="Int32" />
+          <Property Name="courseid" Type="Int32" />
+          <Property Name="a1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="a2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="a3" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="a4" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="b1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="b2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="b3" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="b4" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="b5" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="b6" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="c1" Type="String" MaxLength="240" FixedLength="false" Unicode="false" />
+          <Property Name="c2" Type="String" MaxLength="240" FixedLength="false" Unicode="false" />
+          <Property Name="d1" Type="String" MaxLength="240" FixedLength="false" Unicode="false" />
+          <Property Name="d2" Type="String" MaxLength="240" FixedLength="false" Unicode="false" />
+          <Property Name="e1" Type="String" MaxLength="240" FixedLength="false" Unicode="false" />
+          <Property Name="e2" Type="String" MaxLength="240" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="course" Relationship="Self.FK_evaluation_to_course" FromRole="evaluation" ToRole="course" />
+          <NavigationProperty Name="student" Relationship="Self.FK_evaluation_to_student" FromRole="evaluation" ToRole="student" />
+        </EntityType>
+        <EntityType Name="instructor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="courses" Relationship="Self.FK_course_To_instructor" FromRole="instructor" ToRole="course" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="enrollments" Relationship="Self.FK_enrollments_To_student" FromRole="student" ToRole="enrollments" />
+          <NavigationProperty Name="evaluations" Relationship="Self.FK_evaluation_to_student" FromRole="student" ToRole="evaluation" />
+        </EntityType>
+        <Association Name="FK_course_To_instructor">
+          <End Role="instructor" Type="Self.instructor" Multiplicity="1" />
+          <End Role="course" Type="Self.course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="course">
+              <PropertyRef Name="instructorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enrollments_To_course">
+          <End Role="course" Type="Self.course" Multiplicity="1" />
+          <End Role="enrollments" Type="Self.enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="enrollments">
+              <PropertyRef Name="courseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_evaluation_to_course">
+          <End Role="course" Type="Self.course" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="courseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enrollments_To_student">
+          <End Role="student" Type="Self.student" Multiplicity="1" />
+          <End Role="enrollments" Type="Self.enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="enrollments">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_evaluation_to_student">
+          <End Role="student" Type="Self.student" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="evalsDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="courses" EntityType="Self.course" />
+          <EntitySet Name="enrollments" EntityType="Self.enrollment" />
+          <EntitySet Name="evaluations" EntityType="Self.evaluation" />
+          <EntitySet Name="instructors" EntityType="Self.instructor" />
+          <EntitySet Name="students" EntityType="Self.student" />
+          <AssociationSet Name="FK_course_To_instructor" Association="Self.FK_course_To_instructor">
+            <End Role="instructor" EntitySet="instructors" />
+            <End Role="course" EntitySet="courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enrollments_To_course" Association="Self.FK_enrollments_To_course">
+            <End Role="course" EntitySet="courses" />
+            <End Role="enrollments" EntitySet="enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_evaluation_to_course" Association="Self.FK_evaluation_to_course">
+            <End Role="course" EntitySet="courses" />
+            <End Role="evaluation" EntitySet="evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enrollments_To_student" Association="Self.FK_enrollments_To_student">
+            <End Role="student" EntitySet="students" />
+            <End Role="enrollments" EntitySet="enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_evaluation_to_student" Association="Self.FK_evaluation_to_student">
+            <End Role="student" EntitySet="students" />
+            <End Role="evaluation" EntitySet="evaluations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="evalsDBModelStoreContainer" CdmEntityContainer="evalsDBEntities">
+          <EntitySetMapping Name="courses">
+            <EntityTypeMapping TypeName="evalsDBModel.course">
+              <MappingFragment StoreEntitySet="course">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="instructorid" ColumnName="instructorid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enrollments">
+            <EntityTypeMapping TypeName="evalsDBModel.enrollment">
+              <MappingFragment StoreEntitySet="enrollments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="evaluations">
+            <EntityTypeMapping TypeName="evalsDBModel.evaluation">
+              <MappingFragment StoreEntitySet="evaluation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="coursetitle" ColumnName="coursetitle" />
+                <ScalarProperty Name="studentname" ColumnName="studentname" />
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="a1" ColumnName="a1" />
+                <ScalarProperty Name="a2" ColumnName="a2" />
+                <ScalarProperty Name="a3" ColumnName="a3" />
+                <ScalarProperty Name="a4" ColumnName="a4" />
+                <ScalarProperty Name="b1" ColumnName="b1" />
+                <ScalarProperty Name="b2" ColumnName="b2" />
+                <ScalarProperty Name="b3" ColumnName="b3" />
+                <ScalarProperty Name="b4" ColumnName="b4" />
+                <ScalarProperty Name="b5" ColumnName="b5" />
+                <ScalarProperty Name="b6" ColumnName="b6" />
+                <ScalarProperty Name="c1" ColumnName="c1" />
+                <ScalarProperty Name="c2" ColumnName="c2" />
+                <ScalarProperty Name="d1" ColumnName="d1" />
+                <ScalarProperty Name="d2" ColumnName="d2" />
+                <ScalarProperty Name="e1" ColumnName="e1" />
+                <ScalarProperty Name="e2" ColumnName="e2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instructors">
+            <EntityTypeMapping TypeName="evalsDBModel.instructor">
+              <MappingFragment StoreEntitySet="instructor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="evalsDBModel.student">
+              <MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
