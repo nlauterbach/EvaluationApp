@@ -18,6 +18,7 @@ namespace EvaluationApp.Models
         public int Id { get; set; }
         [Display(Name = "Course Title")]
         public string coursetitle { get; set; }
+        [Display(Name = "Student Name")]
         public string studentname { get; set; }
         public Nullable<int> studentid { get; set; }
         public Nullable<int> courseid { get; set; }
