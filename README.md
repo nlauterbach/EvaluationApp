@@ -1,5 +1,7 @@
 # EvaluationApp
 
+Try it out at <https://evaluationapplication.azurewebsites.net/>!
+
 This application was created as a prototype for a student evaluation form submission portal.
 
 Feel free to login and use it! (Passwords for all demo accounts are 'Password-1')
